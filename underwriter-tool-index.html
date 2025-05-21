@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Estate Underwriter</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    .branding {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .branding img {
+      height: 50px;
+      margin-right: 15px;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 1.75em;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .results {
+      display: none;
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+    .toggle-btn, .pdf-btn {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="branding">
+      <img src="https://drive.google.com/uc?export=view&id=16_-f1BREdb-AiLb6wyRB0ssGegcpOk45" alt="Investor Agent Jimmy Logo">
+      <h1>Investor Agent Jimmy</h1>
+    </div>
+    <form id="dealForm">
+      <!-- All existing form inputs remain here -->
+    </form>
+
+    <div id="results" class="results">
+      <p><strong>Net Income from Refinance:</strong> $<span id="netIncomeRefi">0</span></p>
+      <button class="pdf-btn" onclick="exportPDF()">Download PDF</button>
+    </div>
+  </div>
+
+  <script>
+    function exportPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(16);
+      doc.text("Real Estate Deal Analysis", 20, 20);
+      doc.setFontSize(12);
+
+      const results = document.querySelectorAll("#results p");
+      let y = 30;
+      results.forEach(p => {
+        const label = p.textContent;
+        doc.text(label, 20, y);
+        y += 10;
+      });
+
+      doc.save("deal-analysis.pdf");
+    }
+  </script>
+</body>
+</html>
